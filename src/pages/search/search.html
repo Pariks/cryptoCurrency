@@ -9,6 +9,22 @@
 
 <ion-content>
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
+
+  <ion-scroll scrollX="true" style="overflow: scroll;white-space: nowrap; height: 320px" >
+
+      <div style="padding-left: 15px; font-weight: bold; color: #8e9093;"> Cultur 1</div>
+      <div  *ngFor="let x of temps[2]"  style="display: inline-block;white-space: nowrap; ">
+      <ion-card>
+
+        <img src="http://placehold.it/150x150" style="display: inline-block;">
+        <h3 style="font-weight: bold; color: #60646B;">Title</h3>
+        <ion-card-content>Card Constent</ion-card-content>
+      </ion-card>
+      </div>
+
+  </ion-scroll>
+
+
   <ion-list>
     <button ion-item (click)="openItem(item)" *ngFor="let item of currentItems">
       <ion-avatar item-start>

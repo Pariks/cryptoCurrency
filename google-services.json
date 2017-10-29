@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "688531438903",
+    "project_id": "thedirectdata-172120"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688531438903:android:7bbebd8ed0c2ec44",
+        "android_client_info": {
+          "package_name": "com.thisthat.buzz.thedirectdata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688531438903-5ebcelq84qrvst0gl16foj8s6ttplo0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thisthat.buzz.thedirectdata",
+            "certificate_hash": "1728f416a74da262eefa734a2fe1e39be1fa36af"
+          }
+        },
+        {
+          "client_id": "688531438903-ll5c519stbth74ijte0lks06phi11koe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSTKy-lxdt_1nRJA76_JTobRvBfmdIG_s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

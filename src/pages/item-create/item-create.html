@@ -44,4 +44,21 @@
       </ion-item>
     </ion-list>
   </form>
+
+  <form [formGroup]="myForm">
+
+    <ion-list>
+      <ion-item>
+
+        <input type="file" formControlName="upresume_one" name="upresume_one" (change)="processWebImage($event)"/>
+        <p>Supported formats .doc,.docs and .pdf[Max file size: 500KB]</p>
+      </ion-item>
+      <div class="text-right">
+        <button ion-button style="background-color: #16a085;color: white;" color="secondary" (click)="uploadresume()">Submit</button>
+      </div>
+
+    </ion-list>
+  </form>
+
+
 </ion-content>

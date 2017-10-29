@@ -3,6 +3,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, ViewController } from 'ionic-angular';
 
 import { Camera } from '@ionic-native/camera';
+import {Transfer, TransferObject, FileUploadOptions} from "@ionic-native/transfer";
+import {FileChooser} from "@ionic-native/file-chooser";
 
 
 @Component({
@@ -17,20 +19,33 @@ export class ItemCreatePage {
   item: any;
 
   form: FormGroup;
+  myForm: FormGroup;
+  private myData: any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
+  constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
+              public formBuilder: FormBuilder,
+              public camera: Camera,
+              private transfer: Transfer,
+              private fileChooser: FileChooser) {
+
     this.form = formBuilder.group({
       profilePic: [''],
       name: ['', Validators.required],
       about: ['']
     });
 
+    this.myForm = formBuilder.group({
+      'upresume_one': ['', Validators.required]
+    });
     // Watch the form for changes, and
     this.form.valueChanges.subscribe((v) => {
       this.isReadyToSave = this.form.valid;
     });
   }
-
+  save(formData) {
+    console.log('Form data is ', formData);
+  }
   ionViewDidLoad() {
 
   }
@@ -55,9 +70,10 @@ export class ItemCreatePage {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
 
-      let imageData = (readerEvent.target as any).result;
+      let imageData = (readerEvent.target as any).result; console.log(imageData);
       this.form.patchValue({ 'profilePic': imageData });
     };
+
 
     reader.readAsDataURL(event.target.files[0]);
   }
@@ -79,6 +95,39 @@ export class ItemCreatePage {
    */
   done() {
     if (!this.form.valid) { return; }
+    console.log(this.form.value);
     this.viewCtrl.dismiss(this.form.value);
   }
+
+  uploadresume()
+  {
+    this.fileChooser.open()
+      .then(uri =>
+      {
+        const fileTransfer: TransferObject = this.transfer.create();
+
+        // regarding detailed description of this you cn just refere ionic 2 transfer plugin in official website
+        let options1: FileUploadOptions = {
+          fileKey: 'file',
+          fileName: 'test.png',
+          headers: {},
+          params: {'filename' : uri},
+          chunkedMode: false
+        };
+
+        fileTransfer.upload(uri, 'http://santasecret.ca/api/data', options1)
+          .then((data) => {
+            // success
+            alert("success"+JSON.stringify(data));
+          }, (err) => {
+            // error
+            alert("error"+JSON.stringify(err));
+          });
+
+      })
+      .catch(e => console.log(e));
+  }
+
+
+
 }

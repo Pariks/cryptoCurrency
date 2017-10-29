@@ -26,6 +26,11 @@ import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
 
+import { Transfer } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,6 +38,21 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// Import the AF2 Module
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+// AF2 Settings
+export const firebaseConfig = {
+  apiKey: "AIzaSyABYJbG7RhBanJJWniZ-ZUCSAS8Fm7-sr8",
+  authDomain: "thedirectdata-674d7.firebaseapp.com",
+  databaseURL: "https://thedirectdata-674d7.firebaseio.com",
+  projectId: "thedirectdata-674d7",
+  storageBucket: "thedirectdata-674d7.appspot.com",
+  messagingSenderId: "1059339485263"
+};
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -93,7 +113,12 @@ export function providers() {
     Items,
     User,
     Camera,
+    Transfer,
+    File,
+    FileChooser,
     GoogleMaps,
+    GooglePlus,
+    Facebook,
     SplashScreen,
     StatusBar,
 
@@ -116,7 +141,10 @@ export function providers() {
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: entryComponents(),

@@ -22,12 +22,14 @@ import { Settings } from '../providers/providers';
 
 import { TranslateService } from '@ngx-translate/core'
 
+import { User } from '../providers/user';
+
 @Component({
   template: `<ion-menu [content]="content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Pages</ion-title>
-      </ion-toolbar>
+        <ion-title>Pages</ion-title>        
+      </ion-toolbar>     
     </ion-header>
 
     <ion-content>
@@ -48,7 +50,6 @@ export class MyApp {
 
   pages: any[] = [
     { title: 'Tutorial', component: TutorialPage },
-    { title: 'Welcome', component: WelcomePage },
     { title: 'Tabs', component: TabsPage },
     { title: 'Cards', component: CardsPage },
     { title: 'Content', component: ContentPage },
@@ -58,10 +59,13 @@ export class MyApp {
     { title: 'Master Detail', component: ListMasterPage },
     { title: 'Menu', component: MenuPage },
     { title: 'Settings', component: SettingsPage },
-    { title: 'Search', component: SearchPage }
+    { title: 'Search', component: SearchPage },
+    { title: 'Logout', component: WelcomePage }
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings,
+              private config: Config, statusBar: StatusBar, splashScreen: SplashScreen,
+              public user: User) {
 
     this.initTranslate();
 
@@ -91,6 +95,20 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if(page.title !== 'Logout') {
+      this.nav.setRoot(page.component);
+    } else {
+
+      this.user.signOut()
+        .then(function (res) {
+          localStorage.setItem('uid',null);
+          localStorage.setItem('displayName', null);
+          localStorage.setItem('email', null);
+          localStorage.setItem('photoUrl', null);
+          localStorage.setItem('phoneNumber', null);
+        });
+
+      this.nav.setRoot(page.component);
+    }
   }
 }
